@@ -1,0 +1,9 @@
+form {
+  height: 400px;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: #e8e8e8;
+}
