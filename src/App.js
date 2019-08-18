@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 import Book from './components/Book'
 import AddForm from './components/AddForm'
+import PouchDB from 'pouchdb'
 
 const dummyData = [
   {
-    id: 1234,
+    _id: '1234',
     title: 'Call Of The Wild',
     author: 'Jack London',
     imgSrc: undefined
   },
   {
-    id: 2345,
+    _id: '2345',
     title: 'The Bible',
     author: 'God',
     imgSrc: undefined
@@ -21,8 +22,23 @@ const dummyData = [
 
 function App () {
 
-  const [ books, updateBooks ] = useState(dummyData)
-  const [ isFormOpen, toggleForm ] = useState(true)
+  let db = new PouchDB('library')
+
+  const [ books, updateBooks ] = useState([])
+  const [ isFormOpen, toggleForm ] = useState(false)
+  const [ isDataCollected, collectData ] = useState(true)
+
+  useEffect(() => {
+    if (isDataCollected) {
+      db.get('1234')
+        .then(doc => {
+          updateBooks([doc])
+        })
+        .then(() => {
+          collectData(true)
+        })
+    }
+  }, [db, isDataCollected])
 
   function handleAddButtonClick (event) {
     event.preventDefault()
@@ -44,7 +60,7 @@ function App () {
     return (
       <div className="App">
         <button onClick={handleAddButtonClick}>Add Book</button>
-        {books.map((book) => <Book info={book} key={book.id} />)}
+        {books.map((book) => <Book info={book} key={book._id} />)}
       </div>
     )
   }
