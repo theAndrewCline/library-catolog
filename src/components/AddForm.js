@@ -2,7 +2,6 @@ import React from 'react'
 import '../styles/Form.css'
 
 function AddForm (props) {
-
   const titleRef = React.useRef()
   const authorRef = React.useRef()
   const imgSrcRef = React.useRef()
@@ -12,10 +11,9 @@ function AddForm (props) {
     event.preventDefault()
 
     const newBook = {
-     title: titleRef.current.value,
-     author: authorRef.current.value,
-     imgSrc: imgSrcRef.current.value,
-     id: idRef.current.value
+      title: titleRef.current.value,
+      author: authorRef.current.value,
+      imgSrc: imgSrcRef.current.value
     }
 
     props.addBook(newBook)
@@ -24,13 +22,13 @@ function AddForm (props) {
   return (
     <form>
       <label htmlFor='title'>Title</label>
-      <input ref={titleRef} id='title' type='text'></input>
+      <input ref={titleRef} id='title' type='text' />
       <label htmlFor='author'>Author</label>
-      <input ref={authorRef} id='author' type='text'></input>
+      <input ref={authorRef} id='author' type='text' />
       <label htmlFor='id'>id</label>
-      <input ref={idRef} id='id' type='text'></input>
+      <input ref={idRef} id='id' type='text' />
       <label htmlFor='imgSrc'>Image Source</label>
-      <input ref={imgSrcRef} id='imgSrc' type='text'></input>
+      <input ref={imgSrcRef} id='imgSrc' type='text' />
       <button onClick={handleAddBookClick}>add me!</button>
     </form>
   )
